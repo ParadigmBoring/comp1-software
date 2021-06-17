@@ -68,6 +68,7 @@ set(SOURCES
         ../../Subsurface/Node/Common/Peripherals/Src/I2CInterface.cpp
         ../../Subsurface/Node/Common/Peripherals/Src/PWMInterface.cpp
         ../../Subsurface/Node/Common/Peripherals/Src/PWMManager.cpp
+        ../../Subsurface/Node/Common/Peripherals/Src/DPS310.cpp
 )
 
 set(EXECUTABLE ${PROJECT_NAME}.out)

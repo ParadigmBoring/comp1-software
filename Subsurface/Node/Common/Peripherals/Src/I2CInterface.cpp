@@ -33,7 +33,7 @@ HAL_StatusTypeDef I2CInterface::memRead(uint16_t devAddress,
                                         uint16_t memAddressSize,
                                         uint32_t timeout)
 {
-	return HAL_I2C_Mem_Write(m_hi2c, devAddress, memAddress, memAddressSize, m_dataReceived,
+	return HAL_I2C_Mem_Read(m_hi2c, devAddress, memAddress, memAddressSize, m_dataReceived,
 	                         m_bufferLength, timeout);
 }
 

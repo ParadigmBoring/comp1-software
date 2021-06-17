@@ -2,7 +2,8 @@
 #define NODE_I2CINTERFACE_H
 
 #include "main.h"
-
+#include <cstdint>
+#include <stdint.h>
 class I2CInterface
 {
 private:
