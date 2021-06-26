@@ -30,6 +30,7 @@ SET flightComputerSrc="..\Subsurface\FlightComputer\src"
 
 SET PDS="..\OnLand\PDS"
 SET FLASK="..\OnLand\ControlLaptop"
+SET TESTTOOLS="..\Subsurface\FlightComputer\tools\net_servers"
 
 REM Force copy the files, replacing existing ones
 REM /Y - Suppress confirm prompt
@@ -40,5 +41,7 @@ COPY /Y Paradigm\cpp\*.pb.cc %flightComputerSrc%
 
 COPY /Y Paradigm\py\* %PDS%
 COPY /Y Paradigm\py\* %FLASK%
+COPY /Y Paradigm\py\* %TESTTOOLS%
+
 
 echo Proto Update Complete

@@ -27,6 +27,7 @@ flightComputerSrc="../Subsurface/FlightComputer/src"
 
 PDS="../OnLand/PDS"
 FLASK="../OnLand/ControlLaptop"
+TESTTOOLS="..\Subsurface\FlightComputer\tools\net_servers"
 
 # Force copy the files, replacing existing ones
 cp -f Paradigm/cpp/*.pb.h $flightComputer
@@ -34,5 +35,6 @@ cp -f Paradigm/cpp/*.pb.cc $flightComputerSrc
 
 cp -f Paradigm/py/* $PDS
 cp -f Paradigm/py/* $FLASK
+cp -f Paradigm/py/* $TESTTOOLS
 
 echo "Proto Update Complete"

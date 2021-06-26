@@ -33,14 +33,25 @@ Prerequisites:
    - Windows - Visual Studio 2019 cl.exe should work fine
      - Note: Ensure that C++ Cmake tools for Windows is installed along with Desktop development with C++
 
+Compiling Protobuf:
+ - Unfortunately compiling protobuf and getting it to link properly can be a bit of a pain, so these instructions are a bit more manual for now
+ - On Windows:
+   - The easiest way to install is to use the vcpkg package manager for C++ libraries to install protobuf and the protoc compiler. The instructions [here](https://github.com/microsoft/vcpkg#quick-start-windows) shows you how to install vcpkg, and the instructions [here](https://github.com/protocolbuffers/protobuf/blob/master/src/README.md) under the header "C++ Installation - Windows" will show you how to install the packages under vcpkg.
+    - Note that when cmake is invoked for the FlightComputer project, the cmake toolchain file will have to be set so that protobuf is found
+    - As well, the protoc compiler binary will have to be added to the system PATH, which can be done by adding the path to the folder where vcpkg has installed protoc to the PATH variable, as shown [here](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)
+ - On Linux/MacOS:
+   - The Unix build instructions [here](https://github.com/protocolbuffers/protobuf/blob/master/src/README.md) can be used to build from source, just clone the repo somewhere locally and then follow the instructions. If all goes well, protobuf libraries and includes should be added to the proper directories under /usr/local, and protoc should be invokable from the terminal.
+
 Setup:
-1. In a command prompt (Windows)/terminal (MacOS/Linux), navigate to `comp1-software/Subsurface/FlightComputer`
-2. Make a build directory, and enter it
-3. Building for Raspberry pi:  
-Invoke cmake using `cmake -DCMAKE_TOOLCHAIN_FILE=../arm-linux-gnueabihf-gcc.cmake ..`, this should automatically find the cross compiler (assuming it has been added to your PATH), and generate a Makefile.  
-Building for everything else:  
-Invoke cmake using `cmake ..`, this should generate a Visual Studio Solution (Windows), or a Makefile (MacOS/Linux)
-4. On Windows: Open the .sln file in Visual Studio, and in the solution explorer set the FlightComputer project as the startup project (right click, "set as startup project"), then build and run.  
+1. In a command prompt (Windows)/terminal (MacOS/Linux), navigate to `comp1-software/Protobuf`
+2. On Windows, run `updateProtos.bat`, and on MacOS/Linux run `updateProtos.sh`. This will compiler the sample `Paradigm.proto` and copy the source files to the correct directories.
+3. Navigate to `comp1-software/Subsurface/FlightComputer`
+4. Make a build directory, and enter it
+5. Building for Raspberry pi:  
+   - Invoke cmake using `cmake -DCMAKE_TOOLCHAIN_FILE=../arm-linux-gnueabihf-gcc.cmake ..`, this should automatically find the cross compiler (assuming it has been added to your PATH), and generate a Makefile.
+   - Building for Windows: Invoke cmake using `cmake -DCMAKE_TOOLCHAIN_FILE=<path-to-vcpkg.cmake> ..`, this will ensure that the protobuf libraries are picked up correctly.
+   - Building for MacOS/Linux: Invoke cmake using `cmake ..`, this should generate a Makefile (MacOS/Linux)
+6. On Windows: Open the .sln file in Visual Studio, and in the solution explorer set the FlightComputer project as the startup project (right click, "set as startup project"), then build and run.  
 On Linux/MacOS/Arm64 Linux: Run `make`, and this should build the project, and then run the executable with `./FlightComputer`
 
 

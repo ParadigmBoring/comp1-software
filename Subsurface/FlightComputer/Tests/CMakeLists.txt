@@ -9,27 +9,32 @@ include_directories(../vendors/proto/include)
 include_directories(../include)
 include_directories(../src)
 
-set(Proto_Root ${CMAKE_SOURCE_DIR}/../vendors/proto)
+if (WIN32)
+    # Get Protobuf Library
+    find_package(Protobuf CONFIG REQUIRED)
+else ()
+    set(Protobuf_INCLUDE_DIR /usr/local/include)
+    set(Protobuf_LIBRARIES /usr/local/lib/libprotobuf.a)
+endif (WIN32)
+
+file(GLOB_RECURSE PROTO_SOURCES ../src/*.pb.cc)
+file(GLOB_RECURSE HEADERS ../include/*.h ../include/*.hpp ../include/*.pb.h)
 
 set(SOURCES
-    FlightComputerTest.cpp
+    ../vendors/EasyLogger/easylogging++.cc
 )
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-add_executable(FlightComputerTest ${SOURCES})
+add_executable(FlightComputerTest ${SOURCES} ${PROTO_SOURCES} ${HEADERS} FlightComputerTest.cpp catch.hpp)
 
 target_compile_definitions(FlightComputerTest PUBLIC _WIN32_WINNT=0x0601)
 target_compile_definitions(FlightComputerTest PUBLIC ELPP_WINSOCK2)
 
+target_include_directories(FlightComputerTest PRIVATE ${CMAKE_BINARY_DIR})
+
 if (WIN32)
-    if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-        set_property(TARGET FlightComputerTest PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreadedDebug")
-        target_link_libraries(FlightComputerTest ${Proto_Root}/windows/Debug/libprotobuf-lited.lib)
-    else ()
-        set_property(TARGET FlightComputerTest PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded")
-        target_link_libraries(FlightComputerTest ${Proto_Root}/windows/Release/libprotobuf-lite.lib)
-    endif ()
+    target_link_libraries(FlightComputerTest protobuf::libprotobuf)
 else ()
-    target_link_libraries(FlightComputerTest ${Proto_Root}/linux/libprotobuf-lite.a)
+    target_link_libraries(FlightComputerTest ${Protobuf_LIBRARIES} Threads::Threads)
 endif (WIN32)
