@@ -2,10 +2,12 @@
     display: flex;
     flex-direction: column;
     float: right;
+    width: 20%;
 }
-
+/* note: discrepancy between R & L col is the gap between the two components */
 #left-column {
     display: flex;
     flex-direction: column;
     float: left;
+    width: 78%;
 }

@@ -2,6 +2,5 @@
 .myDiagramDiv {
     z-index: 0;
     background:linear-gradient( rgb(70, 67, 67), rgba(0, 0, 0, 0));
-    width: 84vw;
     height: 80vh;
   }

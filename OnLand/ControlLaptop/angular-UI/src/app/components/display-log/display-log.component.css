@@ -1,6 +1,5 @@
 .padding-top-bottom {
   /* size of the entire box/container */
-  width: 13vw;
   height: 153px;
   padding: 10px 8px 10px 15px;
   background: linear-gradient( rgb(70, 67, 67), rgba(0, 0, 0, 0));
